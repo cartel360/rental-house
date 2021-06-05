@@ -66,9 +66,9 @@ if(isset($_POST['smsg'])){
     $mail->Host = "smtp.gmail.com";
     $mail->Port = 465; // or 587
     $mail->IsHTML(true);
-    $mail->Username = "billydano360@gmail.com"; // Enter your Email
-    $mail->Password = "@Billy.Dan360"; // Enter your Email Password
-    $mail->SetFrom("billydano360@gmail.com");
+    $mail->Username = ""; // Enter your Email
+    $mail->Password = ""; // Enter your Email Password
+    $mail->SetFrom("");
     $mail->Subject = "Haven House";
     $mail->Body = $message;
     $mail->AddAddress($pno);

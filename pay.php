@@ -118,9 +118,9 @@ if (isset($_POST['submit'])) {
             $mail->Host = "smtp.gmail.com";
             $mail->Port = 465; // or 587
             $mail->IsHTML(true);
-            $mail->Username = "billydano360@gmail.com"; // Enter your Email
-            $mail->Password = "0799092010"; // Enter your Email Password
-            $mail->SetFrom("billydano360@gmail.com");
+            $mail->Username = ""; // Enter your Email
+            $mail->Password = ""; // Enter your Email Password
+            $mail->SetFrom("");
             $mail->Subject = "Payment Successfull";
             $mail->Body = $message;
             $mail->AddAddress($email);
