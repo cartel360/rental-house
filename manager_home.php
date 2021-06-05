@@ -158,7 +158,7 @@ if(!$user && $role == 'Manager'){
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <h1 class="h3 mb-2 text-gray-800" align = "center">Tenants</h1>
-          <p style="color:red;"><b><b>Please click a number from the table to send a message.</b></b></p>
+          <p style="color:red;"><b><b>Please click an email from the table to send a message.</b></b></p>
 
           <div class="card shadow mb-4">
 
@@ -168,6 +168,7 @@ if(!$user && $role == 'Manager'){
                   <thead>
                     <tr>
                       <th>Name</th>
+                      <th>Email</th>
                       <th>Phone Number 1</th>
                       <th>Phone Number 2</th>
                       <th>House Name</th>
@@ -195,6 +196,7 @@ if(!$user && $role == 'Manager'){
                         $fname = $row1['fname'];
                         $lname = $row1['lname'];
                         $uname = $row1['u_name'];
+                        $email = $row1['e_address'];
                         $pno = $row1['p_no'];
                         $pno1 = $row1['pno1'];
                         $row1 = mysqli_fetch_assoc($result1);
@@ -218,8 +220,9 @@ if(!$user && $role == 'Manager'){
                       $cid = $row['contract_id'];
                         echo '<tr>';
                         echo '<td>'.$fname.' '.$lname.'</td>';
-                        echo "<td><a href ='manager_send.php?id=".$pno."'>".$pno."</a></td>";
-                        echo "<td><a href ='manager_send.php?id=".$pno1."'>".$pno1."</a></td>";
+                        echo "<td><a href ='manager_send.php?id=" . $email . "'>" . $email . "</a></td>";
+                        echo "<td>".$pno."</td>";
+                        echo "<td>".$pno1."</td>";
                         echo '<td>'.$hname.'</td>';
                         echo '<td>'.$dur.'</td>';
                         echo '<td>'.$term.'</td>';
