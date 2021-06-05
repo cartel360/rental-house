@@ -339,36 +339,30 @@ if (isset($_POST['submit'])) {
                         <td>
                           Receipient's Phone Number:
                         </td>
-                        <td><input type='text' class='form-control form-control-user' name='pno1' value="255717812676" readonly></td>
+                        <td><input type='text' class='form-control form-control-user' name='pno1' value="254712345678" readonly></td>
                       </tr>
                       <tr>
                         <td>
                           Your PIN Number: <strong>(This is your pin and you only see it once, write it somewhere)</strong>
                         </td>
                         <?php
-                          $uname = @$_SESSION['username'];
-                          $query = "SELECT * FROM tenant WHERE u_name = '$uname' ";
-                          $result = mysqli_query($con, $query);
+                        $uname = @$_SESSION['username'];
+                        $query = "SELECT * FROM tenant WHERE u_name = '$uname' ";
+                        $result = mysqli_query($con, $query);
+                        $row = mysqli_fetch_assoc($result);
+                        do {
+                          $phone = $row['p_no'];
                           $row = mysqli_fetch_assoc($result);
-                          do {
-                            $phone = $row['p_no'];
-                            
-                            echo $phone;
+                        } while ($row);
 
-                            $row = mysqli_fetch_assoc($result);
-                         
-                        $pin_query = mysqli_query($conn, "SELECT pin FROM user WHERE phone = $phone");
+                        $pin_query = mysqli_query($conn, "SELECT pin_no FROM user WHERE phone = '$phone'");
                         $row1 = mysqli_fetch_assoc($pin_query);
-                        do{
-                          $pin = $row1['pin'];
-                          ?>
-                          <td><input type='text' class='form-control form-control-user' name='pin' value="<?php echo $pin; ?>"></td>
-                          <?php
-                        } while($row1);
-                        } while ($row); 
 
+                        $pin = $row1['pin_no'];
                         ?>
-                        
+                        <td><input type='text' class='form-control form-control-user' name='pin' value="<?php echo $pin; ?>" readonly></td>
+
+
                       </tr>
                       <tr>
                         <td>
