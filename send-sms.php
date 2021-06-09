@@ -60,17 +60,7 @@ if (isset($_POST['smsg'])) {
   //   }
   // }
 
-  $response = $client->sms()->send(
-    new \Nexmo\SMS\Message\SMS("254755653267", BRAND_NAME, 'A text message sent using the Nexmo SMS API')
-  );
-
-  $message = $response->current();
-
-  if ($message->getStatus() == 0) {
-    echo "The message was sent successfully\n";
-  } else {
-    echo "The message failed with status: " . $message->getStatus() . "\n";
-  }
+ 
 }
 
 
@@ -369,7 +359,7 @@ if (isset($_POST['smsg'])) {
                       $cid = $row['contract_id'];
                       echo '<tr>';
                       echo '<td>' . $fname . ' ' . $lname . '</td>';
-                      echo "<td><a href ='manager_send.php?id=" . $email . "'>" . $email . "</a></td>";
+                      echo "<td><a href ='send_email.php?id=" . $email . "'>" . $email . "</a></td>";
                       echo "<td>" . $pno . "</td>";
                       echo "<td>" . $pno1 . "</td>";
                       echo '<td>' . $hname . '</td>';

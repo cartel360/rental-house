@@ -63,9 +63,9 @@ if (isset($_POST['smsg'])) {
         $mail->Host = "smtp.gmail.com";
         $mail->Port = 465; // or 587
         $mail->IsHTML(true);
-        $mail->Username = ""; // Enter your Email
-        $mail->Password = ""; // Enter your Email Password
-        $mail->SetFrom("");
+        $mail->Username = "havenhouse010@gmail.com"; // Enter your Email
+        $mail->Password = "havenhouse1738"; // Enter your Email Password
+        $mail->SetFrom("havenhouse010@gmail.com");
         $mail->Subject = "Haven House";
         $mail->Body = $message;
         $mail->AddAddress($pno);
@@ -103,17 +103,7 @@ if (isset($_POST['smsg'])) {
     //   }
     // }
 
-    $response = $client->sms()->send(
-        new \Nexmo\SMS\Message\SMS("254755653267", BRAND_NAME, 'A text message sent using the Nexmo SMS API')
-    );
 
-    $message = $response->current();
-
-    if ($message->getStatus() == 0) {
-        echo "The message was sent successfully\n";
-    } else {
-        echo "The message failed with status: " . $message->getStatus() . "\n";
-    }
 }
 
 

@@ -66,9 +66,9 @@ if(isset($_POST['smsg'])){
     $mail->Host = "smtp.gmail.com";
     $mail->Port = 465; // or 587
     $mail->IsHTML(true);
-    $mail->Username = ""; // Enter your Email
-    $mail->Password = ""; // Enter your Email Password
-    $mail->SetFrom("");
+    $mail->Username = "havenhouse010@gmail.com"; // Enter your Email
+    $mail->Password = "havenhouse1738"; // Enter your Email Password
+    $mail->SetFrom("havenhouse010@gmail.com");
     $mail->Subject = "Haven House";
     $mail->Body = $message;
     $mail->AddAddress($pno);
@@ -80,7 +80,7 @@ if(isset($_POST['smsg'])){
     } else {
       echo "<script>
             alert('Message Sent Successfully');
-            window.location.href='manager_send.php';
+            window.location.href='manager_home.php';
             </script>";
     }
   } catch (Exception $e) {

@@ -157,7 +157,7 @@ if (isset($_POST['submit'])) {
             $mail->IsHTML(true);
             $mail->Username = "havenhouse010@gmail.com"; // Enter your Email
             $mail->Password = "havenhouse1738"; // Enter your Email Password
-            $mail->SetFrom("Haven House Rentals");
+            $mail->SetFrom("havenhouse010@gmail.com");
             $mail->Subject = "New Payment Made";
             $mail->Body = $message;
             $mail->AddAddress($email);
