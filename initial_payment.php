@@ -21,6 +21,15 @@ include_once "vendor/nexmo/client/Credentials/AbstractCredentials.php";
 include_once "vendor/nexmo/client/Credentials/Basic.php";
 require_once "vendor/autoload.php";
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+
 
 session_start();
 include "conn.php";
@@ -81,9 +90,9 @@ if (isset($_POST['submit'])) {
           $balance1  =  $amm1 + $amount;
           $ref_no = rand(1000000000, 2147483647);
           $date = date('Y-m-d H:i:s');
-          $sql2 = "INSERT INTO transaction VALUES ('$ref_no','$user','$rec','$amount','$date')";
+          $sql2 = "INSERT INTO transaction (`ref_no`, `user`, `recepient`, `amount`, `date`) VALUES ('$ref_no','$user','$rec','$amount','$date')";
           mysqli_query($conn, $sql2);
-          $sql3 = "INSERT INTO payment(`payment_id`, `tenant_id`, `ref_no`, `amount`, `pay_from`, `pay_to`, `date`) VALUES (' ','$id','$ref_no','$amount','$from','$to','$date')";
+          $sql3 = "INSERT INTO payment(`tenant_id`, `ref_no`, `amount`, `pay_from`, `pay_to`, `date`) VALUES ('$id','$ref_no','$amount','$from','$to','$date')";
           mysqli_query($con, $sql3);
           $sql4 = "UPDATE user SET amount = '$balance' WHERE phone = '$pno'";
           mysqli_query($conn, $sql4);
@@ -97,40 +106,68 @@ if (isset($_POST['submit'])) {
           $basic  = new \Nexmo\Client\Credentials\Basic('855de446', 'iKYHA4zYzabA4VKb');
           $client = new \Nexmo\Client($basic);
 
-
           try {
-            $message = $client->message()->send([
-              'to' => "$pno",
-              'from' => '255621821818',
-              'text' => "You have sent Kshs. " . number_format($amount) . " to $pno1. Your balance is Kshs." . number_format($balance) . ". Ref. number: $ref_no on $date. Thank You."
-            ]);
+            $message = "You have sent Kshs. " . number_format($amount) . " to $pno1. Your balance is Kshs." . number_format($balance) . ". Ref. number: $ref_no on $date. Thank You.";
 
-            $response = $message->getResponseData();
 
-            if ($response['messages'][0]['status'] == 0) {
-              echo "<script> alert('The message was sent successfully');</script>";
+
+            //PHPMailer Object
+            $mail = new PHPMailer(); // create a new object
+            $mail->IsSMTP(); // enable SMTP
+            $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+            $mail->SMTPAuth = true; // authentication enabled
+            $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+            $mail->Host = "smtp.gmail.com";
+            $mail->Port = 465; // or 587
+            $mail->IsHTML(true);
+            $mail->Username = "havenhouse010@gmail.com"; // Enter your Email
+            $mail->Password = "havenhouse1738"; // Enter your Email Password
+            $mail->SetFrom("Haven House Rentals");
+            $mail->Subject = "Payment Successfull";
+            $mail->Body = $message;
+            $mail->AddAddress($email);
+
+            echo $email;
+
+            if (!$mail->Send()) {
+              echo "Mailer Error: " . $mail->ErrorInfo;
             } else {
-              echo "<script> alert('The message failed!!!');</script>";
+              echo "<script>
+            alert('Payment Made Successfully');
+            window.location.href='pay.php';
+            </script>";
             }
           } catch (Exception $e) {
             echo "<script> alert('The message was not sent!!!');</script>";
           }
 
-
-
           try {
-            $message = $client->message()->send([
-              'to' => "$pno1",
-              'from' => '255621821818',
-              'text' => "You have received Kshs. " . number_format($amount) . " from $pno. Your balance is Kshs. " . number_format($balance1) . ". Ref. number: $ref_no on $date. Thank You."
-            ]);
+            $message = "You have received Kshs. " . number_format($amount) . " from $pno. Your balance is Kshs. " . number_format($balance1) . ". Ref. number: $ref_no on $date. Thank You.";
 
-            $response = $message->getResponseData();
 
-            if ($response['messages'][0]['status'] == 0) {
-              echo "<script> alert('The message was sent successfully');</script>";
+
+            //PHPMailer Object
+            $mail = new PHPMailer(); // create a new object
+            $mail->IsSMTP(); // enable SMTP
+            $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+            $mail->SMTPAuth = true; // authentication enabled
+            $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+            $mail->Host = "smtp.gmail.com";
+            $mail->Port = 465; // or 587
+            $mail->IsHTML(true);
+            $mail->Username = "havenhouse010@gmail.com"; // Enter your Email
+            $mail->Password = "havenhouse1738"; // Enter your Email Password
+            $mail->SetFrom("Haven House Rentals");
+            $mail->Subject = "New Payment Made";
+            $mail->Body = $message;
+            $mail->AddAddress($email);
+
+            echo $email;
+
+            if (!$mail->Send()) {
+              echo "Mailer Error: " . $mail->ErrorInfo;
             } else {
-              echo "<script> alert('The message failed!!!');</script>";
+
             }
           } catch (Exception $e) {
             echo "<script> alert('The message was not sent!!!');</script>";
@@ -138,7 +175,7 @@ if (isset($_POST['submit'])) {
 
           echo "<script type='text/javascript'>alert('Payment has been performed successfully!');</script>";
           echo '<style>body{display:none;}</style>';
-          echo '<script>window.location.href = "login.php";</script>';
+          echo '<script>window.location.href = "home.php";</script>';
         }
       }
     }

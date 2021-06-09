@@ -35,7 +35,7 @@ if (isset($_POST["submit"])) {
   $dur1 = $dur - 1;
   $term = (int)$_POST['term'];
   $contract = $_POST['contract'];
-  $house = isset($_POST['house']);
+  $house = $_POST['house'];
   $price = (int)$_POST['price'];
   $total_rent = $dur * $price;
   $rent_per_term = $total_rent / $term;
@@ -95,13 +95,13 @@ if (isset($_POST["submit"])) {
           $occErr = "Your ocupation should only contain letters!";
           echo "<script> alert('$occErr');</script>";
         } else {
-          if ((!is_numeric($pno1)) || (!is_numeric($pno2))) {
+          if (!is_numeric($pno1))  {
             $pno1Err = "The phone number should not contain letters";
             echo "<script> alert('$pno1Err');</script>";
-          } elseif ((strlen($pno1) > 12) || (strlen($pno2) > 12)) {
+          } elseif (strlen($pno1) > 12) {
             $pno1Err = "The phone number is too long";
             echo "<script> alert('$pno1Err');</script>";
-          } elseif ((strlen($pno1) < 12) || (strlen($pno2) < 12)) {
+          } elseif (strlen($pno1) < 12) {
             $pno1Err = "The phone number is too short";
             echo "<script> alert('$pno1Err');</script>";
           } else {
@@ -115,16 +115,6 @@ if (isset($_POST["submit"])) {
               $cpno1Err = "The phone number is too short";
               echo "<script> alert('$cpno1Err');</script>";
             } else {
-              if (((!is_numeric($cpno3)) || (!is_numeric($cpno4))) && (!($cpno4 == "") || !($cpno3 == ""))) {
-                $cpno3Err = "The phone number should not contain letters";
-                echo "<script> alert('$cpno3Err');</script>";
-              } elseif (((strlen($cpno3) > 12) || (strlen($cpno4) > 12)) && (!($cpno4 == "") || !($cpno3 == ""))) {
-                $cpno3Err = "The phone number is too long";
-                echo "<script> alert('$cpno3Err');</script>";
-              } elseif (((strlen($cpno3) < 12) || (strlen($cpno4) < 12)) && (!($cpno4 == "") || !($cpno3 == ""))) {
-                $cpno3Err = "The phone number is too short";
-                echo "<script> alert('$cpno3Err');</script>";
-              } else {
                 if ((!ctype_alpha($cfname1)) || (!ctype_alpha($cfname2)) || (!ctype_alpha($clname1)) || (!ctype_alpha($clname2))) {
                   $cfname1Err = "The name should only contain letters!";
                   echo "<script> alert('$cfname1Err');</script>";
@@ -315,7 +305,7 @@ if (isset($_POST["submit"])) {
     $emailErr = "Invalid Email";
     echo "<script> alert('$emailErr');</script>";
   }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

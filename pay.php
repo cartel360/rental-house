@@ -118,9 +118,9 @@ if (isset($_POST['submit'])) {
             $mail->Host = "smtp.gmail.com";
             $mail->Port = 465; // or 587
             $mail->IsHTML(true);
-            $mail->Username = ""; // Enter your Email
-            $mail->Password = ""; // Enter your Email Password
-            $mail->SetFrom("");
+            $mail->Username = "havenhouse010@gmail.com"; // Enter your Email
+            $mail->Password = "havenhouse1738"; // Enter your Email Password
+            $mail->SetFrom("havenhouse010@gmail.com");
             $mail->Subject = "Payment Successfull";
             $mail->Body = $message;
             $mail->AddAddress($email);
@@ -153,9 +153,9 @@ if (isset($_POST['submit'])) {
             $mail->Host = "smtp.gmail.com";
             $mail->Port = 465; // or 587
             $mail->IsHTML(true);
-            $mail->Username = "billydano360@gmail.com"; // Enter your Email
-            $mail->Password = "0799092010"; // Enter your Email Password
-            $mail->SetFrom("billydano360@gmail.com");
+            $mail->Username = "havenhouse010@gmail.com"; // Enter your Email
+            $mail->Password = "havenhouse1738"; // Enter your Email Password
+            $mail->SetFrom("havenhouse010@gmail.com");
             $mail->Subject = "New Payment Made";
             $mail->Body = $message;
             $mail->AddAddress($email);
@@ -332,22 +332,22 @@ if (isset($_POST['submit'])) {
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                <?php
+                  $uname = @$_SESSION['username'];
+                  $query = "SELECT * FROM tenant WHERE u_name = '$uname' ";
+                  $result = mysqli_query($con, $query);
+                  $row = mysqli_fetch_assoc($result);
+                  do {
+                    $fname = $row['fname'];
+                    $lname = $row['lname'];
+                    $id = $row['tenant_id'];
+                    $full = $fname . " " . $lname;
+                    echo $full;
 
-                                                                          $uname = @$_SESSION['username'];
-                                                                          $query = "SELECT * FROM tenant WHERE u_name = '$uname' ";
-                                                                          $result = mysqli_query($con, $query);
-                                                                          $row = mysqli_fetch_assoc($result);
-                                                                          do {
-                                                                            $fname = $row['fname'];
-                                                                            $lname = $row['lname'];
-                                                                            $id = $row['tenant_id'];
-                                                                            $full = $fname . " " . $lname;
-                                                                            echo $full;
-
-                                                                            $row = mysqli_fetch_assoc($result);
-                                                                          } while ($row);
-                                                                          ?></span>
+                    $row = mysqli_fetch_assoc($result);
+                  } while ($row);
+                  ?></span>
                 <img class="img-profile rounded-circle" src="user.png">
               </a>
               <!-- Dropdown - User Information -->
